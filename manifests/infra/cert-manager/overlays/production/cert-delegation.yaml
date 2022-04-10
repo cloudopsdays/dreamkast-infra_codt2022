@@ -1,0 +1,20 @@
+---
+apiVersion: projectcontour.io/v1
+kind: TLSCertificateDelegation
+metadata:
+  name: wildcard-cloudopsdays-jp
+spec:
+  delegations:
+    - secretName: wildcard-cloudopsdays-jp
+      targetNamespaces:
+      - "*"
+---
+apiVersion: projectcontour.io/v1
+kind: TLSCertificateDelegation
+metadata:
+  name: wildcard-dev-cloudopsdays-jp
+spec:
+  delegations:
+    - secretName: wildcard-dev-cloudopsdays-jp
+      targetNamespaces:
+      - "*"

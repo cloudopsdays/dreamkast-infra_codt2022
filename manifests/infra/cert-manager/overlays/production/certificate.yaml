@@ -1,0 +1,24 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-cloudopsdays-jp
+spec:
+  dnsNames:
+  - '*.event.cloudopsdays.com'
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt
+  secretName: wildcard-cloudopsdays-jp
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-dev-cloudopsdays-jp
+spec:
+  dnsNames:
+  - '*.event.cloudopsdays.com'
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt
+  secretName: wildcard-dev-cloudopsdays-jp

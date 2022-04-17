@@ -66,13 +66,6 @@ spec:
                 options:
                   path: /var/lib/grafana/dashboards/public
         dashboards:
-          public:
-            o11y2022 proposals:
-              datasource: Prometheus
-              url: https://raw.githubusercontent.com/cloudnativedaysjp/dreamkast-infra/01d27ac125fc2edcc6db9f8ab6f0e62149cf9952/dashboards/o11y2022-cfp.json
-            o11y2022 main:
-              datasource: Prometheus
-              url: https://raw.githubusercontent.com/cloudnativedaysjp/dreamkast-infra/01d27ac125fc2edcc6db9f8ab6f0e62149cf9952/dashboards/o11y2022-main.json
           private:
             Amazon RDS:
               gnetId: 11264
@@ -101,9 +94,9 @@ spec:
               revision: 16
             Contour-HTTProxy:
               datasource: Prometheus
-              url: https://raw.githubusercontent.com/cloudnativedaysjp/dreamkast-infra/01d27ac125fc2edcc6db9f8ab6f0e62149cf9952/dashboards/Contour-HTTProxy.json
+              url: https://raw.githubusercontent.com/cloudopsdays/dreamkast-infra_codt2022/main/dashboards/Contour-HTTProxy.json
             Kubernetes-Pod:
-              url: https://raw.githubusercontent.com/cloudnativedaysjp/dreamkast-infra/01d27ac125fc2edcc6db9f8ab6f0e62149cf9952/dashboards/Kubernetes-Pod.json
+              url: https://raw.githubusercontent.com/cloudopsdays/dreamkast-infra_codt2022/main/dashboards/Kubernetes-Pod.json
         envFromSecret: grafana-secret
         grafana.ini:
           server:
@@ -119,7 +112,7 @@ spec:
             token_url: https://dreamkast.us.auth0.com/oauth/token
             api_url: https://dreamkast.us.auth0.com/userinfo
             role_attribute_strict: false
-            role_attribute_path: contains("https://cloudnativedays.jp/roles", 'O11Y2022-Admin') && 'Admin'
+            role_attribute_path: contains("https://cloudnativedays.jp/roles", 'CODT2022-Admin') && 'Admin'
       parameters:
       - name: image.tag
         value: "8.3.3"

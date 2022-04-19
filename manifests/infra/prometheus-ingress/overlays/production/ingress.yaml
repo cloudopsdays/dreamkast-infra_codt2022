@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring
 spec:
   virtualhost:
-    fqdn: prometheus.cloudopsdays.jp
+    fqdn: prometheus.event.cloudopsdays.jp
     tls:
       secretName: cert-manager/wildcard-cloudopsdays-jp
     authorization:

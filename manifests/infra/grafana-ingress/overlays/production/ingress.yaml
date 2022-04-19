@@ -5,7 +5,7 @@ metadata:
   namespace: monitoring
 spec:
   virtualhost:
-    fqdn: grafana.cloudopsdays.jp
+    fqdn: grafana.event.cloudopsdays.jp
     tls:
       secretName: cert-manager/wildcard-cloudopsdays-jp
   routes:

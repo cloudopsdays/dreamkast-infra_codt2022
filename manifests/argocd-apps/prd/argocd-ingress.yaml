@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: https://github.com/cloudopsdays/dreamkast-infra_codt2022.git
     path: manifests/infra/argocd-ingress/overlays/production
-    targetRevision: main
+    targetRevision: feature/kono/add_infra_argo
   syncPolicy:
     automated:
       prune: true

@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   virtualhost:
-    fqdn: argocd.cloudopsdays.jp
+    fqdn: argocd.event.cloudopsdays.jp
     tls:
       secretName: cert-manager/wildcard-cloudopsdays-jp
   routes:

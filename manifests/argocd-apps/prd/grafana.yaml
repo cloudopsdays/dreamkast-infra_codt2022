@@ -1,0 +1,147 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana
+  namespace: argocd
+spec:
+  destination:
+    namespace: monitoring
+    server: https://kubernetes.default.svc
+  project: monitoring
+  source:
+    chart: grafana
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.19.2
+    helm:
+      values: |
+        datasources:
+          datasources.yaml:
+            apiVersion: 1
+            datasources:
+            - name: Prometheus
+              type: prometheus
+              url: http://prometheus-k8s:9090
+              isDefault: true
+            - name: Loki
+              type: loki
+              url: http://loki:3100
+            - name: CloudWatch
+              type: cloudwatch
+              jsonData:
+                authType: default
+                defaultRegion: ap-northeast-1
+            - name: Jaeger
+              type: jaeger
+              url: http://jaeger-tracing-query:16686
+        dashboardProviders:
+          dashboardproviders.yaml:
+            apiVersion: 1
+            providers:
+              - name: default
+                orgId: 1
+                folder:
+                type: file
+                disableDeletion: true
+                editable: false
+                allowUiUpdates: false
+                options:
+                  path: /var/lib/grafana/dashboards/default
+              - name: private
+                orgId: 1
+                folder: 'private'
+                type: file
+                disableDeletion: true
+                allowUiUpdates: false
+                editable: false
+                options:
+                  path: /var/lib/grafana/dashboards/private
+              - name: public
+                orgId: 1
+                folder: 'public'
+                type: file
+                disableDeletion: true
+                allowUiUpdates: false
+                editable: false
+                options:
+                  path: /var/lib/grafana/dashboards/public
+        dashboards:
+          private:
+            Amazon RDS:
+              gnetId: 11264
+              revision: 2
+            Amazon EC2:
+              gnetId: 11265
+              revision: 2
+            Cluster Monitoring for Kubernetes:
+              datasource: Prometheus
+              gnetId: 10000
+              revision: 1
+            Kubernetes Cluster (Prometheus):
+              gnetId: 6417
+              revision: 1
+            Logging Dashboard via Loki:
+              datasource: Loki
+              gnetId: 12611
+              revision: 1
+            Persistent Volume Usage:
+              datasource: Prometheus
+              gnetId: 13646
+              revision: 2
+            AWS Billing:
+              datasource: CloudWatch
+              gnetId: 139
+              revision: 16
+            Contour-HTTProxy:
+              datasource: Prometheus
+              url: https://raw.githubusercontent.com/cloudopsdays/dreamkast-infra_codt2022/main/dashboards/Contour-HTTProxy.json
+            Kubernetes-Pod:
+              url: https://raw.githubusercontent.com/cloudopsdays/dreamkast-infra_codt2022/main/dashboards/Kubernetes-Pod.json
+        envFromSecret: grafana-secret
+        grafana.ini:
+          server:
+            root_url: https://grafana.cloudopsdays.jp
+          auth.generic_oauth:
+            enabled: true
+            allow_sign_up: true
+            team_ids:
+            allowed_organizations:
+            name: Auth0
+            scopes: openid profile email
+            auth_url: https://dreamkast.us.auth0.com/authorize
+            token_url: https://dreamkast.us.auth0.com/oauth/token
+            api_url: https://dreamkast.us.auth0.com/userinfo
+            role_attribute_strict: false
+            role_attribute_path: contains("https://cloudnativedays.jp/roles", 'CODT2022-Admin') && 'Admin'
+      parameters:
+      - name: image.tag
+        value: "8.3.3"
+      - name: persistence.enabled
+        value: "true"
+      - name: persistence.type
+        value: statefulset
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-ingress
+  namespace: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  project: monitoring
+  source:
+    path: manifests/infra/grafana-ingress/overlays/production
+    repoURL: https://github.com/cloudopsdays/dreamkast-infra_codt2022.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+    syncOptions:
+    - CreateNamespace=true

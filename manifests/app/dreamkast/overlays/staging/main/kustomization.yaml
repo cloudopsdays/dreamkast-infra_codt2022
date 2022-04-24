@@ -6,9 +6,7 @@ resources:
 - redis.yaml
 - hpa.yaml
 - ../../../base/
-- viewer-count.yaml
 - deployment-fifo-worker.yaml
-- polling-harvest-job-and-update-video.yaml
 patchesStrategicMerge:
 - deployment-dreamkast.yaml
 namespace: dreamkast-staging

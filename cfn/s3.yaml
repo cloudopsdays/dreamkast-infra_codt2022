@@ -5,7 +5,6 @@ Parameters:
   PJPrefix:
     Type: String
     Default: "dreamkast-codt"
-#S3BucketName
   S3BucketName:
     Type: String
     Default: "bucket"
@@ -27,18 +26,6 @@ Resources:
         RestrictPublicBuckets: True
 
 # ------------------------------------------------------------#
-#  VPCS3Endpoint
-# ------------------------------------------------------------#
-  VPCS3Endpoint:
-    Type: "AWS::EC2::VPCEndpoint"
-    Properties:
-      RouteTableIds:
-        - { "Fn::ImportValue": !Sub "${PJPrefix}-private-route-a" }
-        - { "Fn::ImportValue": !Sub "${PJPrefix}-private-route-c" }
-      ServiceName: !Sub "com.amazonaws.${AWS::Region}.s3"
-      VpcId: { "Fn::ImportValue": !Sub "${PJPrefix}-vpc" }
-
-# ------------------------------------------------------------#
 # Output Parameters
 # ------------------------------------------------------------#
 Outputs:
@@ -46,10 +33,4 @@ Outputs:
   S3BucketName:
     Value: !Ref S3Bucket
     Export:
-      Name: !Sub "${PJPrefix}-bucket-id"
-
-#VPCS3Endpoint
-  VPCS3Endpoint:
-    Value: !Ref VPCS3Endpoint
-    Export:
-      Name: !Sub "${PJPrefix}-vpcs3endpoint-id"
+      Name: !Sub "${PJPrefix}-${S3BucketName}-id"

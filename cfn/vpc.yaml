@@ -308,6 +308,18 @@ Resources:
       Domain: vpc
 
 # ------------------------------------------------------------#
+#  VPCS3Endpoint
+# ------------------------------------------------------------#
+  VPCS3Endpoint:
+    Type: "AWS::EC2::VPCEndpoint"
+    Properties:
+      RouteTableIds:
+        - { "Fn::ImportValue": !Sub "${PJPrefix}-private-route-a" }
+        - { "Fn::ImportValue": !Sub "${PJPrefix}-private-route-c" }
+      ServiceName: !Sub "com.amazonaws.${AWS::Region}.s3"
+      VpcId: { "Fn::ImportValue": !Sub "${PJPrefix}-vpc" }
+
+# ------------------------------------------------------------#
 # Output Parameters
 # ------------------------------------------------------------#
 Outputs:
@@ -383,3 +395,9 @@ Outputs:
     Value: !Ref PrivateRouteTableC
     Export:
       Name: !Sub "${PJPrefix}-private-route-c"
+
+#VPCS3Endpoint
+  VPCS3Endpoint:
+    Value: !Ref VPCS3Endpoint
+    Export:
+      Name: !Sub "${PJPrefix}-vpcs3endpoint-id"

@@ -31,21 +31,21 @@ spec:
         - name: RAILS_ENV
           value: "production"
         - name: MYSQL_HOST
-          value: ""
+          value: "dreamkast-codt-rds.cysvpzying2j.ap-northeast-1.rds.amazonaws.com"
         - name: MYSQL_DATABASE
-          value: "dreamkast"
+          value: "dreamkast-staging"
         - name: REDIS_URL
           value: "redis://dreamkast-redis:6379"
         - name: SENTRY_DSN
           value: ""
         - name: S3_BUCKET
-          value: ""
+          value: "dreamkast-codt-bucket-staging"
         - name: S3_REGION
           value: ap-northeast-1
         - name: AWS_REGION
           value: ap-northeast-1
         - name: SQS_FIFO_QUEUE_URL
-          value: ""
+          value: "https://sqs.ap-northeast-1.amazonaws.com/632965872029/dreamkast-codt-stagingFifoQueue.fifo"
         - name: DREAMKAST_NAMESPACE
           valueFrom:
             fieldRef:

@@ -33,4 +33,4 @@ Outputs:
   S3BucketName:
     Value: !Ref S3Bucket
     Export:
-      Name: !Sub "${PJPrefix}-bucket-id"
+      Name: !Sub "${PJPrefix}-${S3BucketName}-id"

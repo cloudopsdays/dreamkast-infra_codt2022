@@ -20,7 +20,7 @@ spec:
   project: app
   source:
     path: manifests/app/dreamkast/overlays/staging/main
-    repoURL: https://github.com/cloudopsdays/dreamkast-infra.git
+    repoURL: https://github.com/cloudopsdays/dreamkast-infra_codt2022.git
     targetRevision: main
   syncPolicy:
     automated:

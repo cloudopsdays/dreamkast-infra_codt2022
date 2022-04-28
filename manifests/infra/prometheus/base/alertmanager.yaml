@@ -1,0 +1,46 @@
+apiVersion: monitoring.coreos.com/v1
+kind: Alertmanager
+metadata:
+  name: k8s
+  namespace: monitoring
+spec:
+  replicas: 2
+  alertmanagerConfigSelector:
+    matchLabels:
+      alertmanagerConfig: k8s
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: k8s
+  namespace: monitoring
+  labels:
+    alertmanagerConfig: k8s
+spec:
+  route:
+    groupBy: ['alertname']
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    receiver: 'slack-cloudopsdays'
+  receivers:
+  - name: 'slack-cloudopsdays'
+    slackConfigs:
+    - apiURL:
+        name: slack-cloudopsdays
+        key: dreamkast-monitoring_webhook_url
+      channel: "dreamkast-monitoring"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager-main
+  namespace: monitoring
+spec:
+  ports:
+  - name: web
+    port: 9093
+    protocol: TCP
+    targetPort: web
+  selector:
+    alertmanager: k8s

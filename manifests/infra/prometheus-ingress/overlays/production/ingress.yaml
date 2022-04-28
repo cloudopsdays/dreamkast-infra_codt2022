@@ -1,0 +1,25 @@
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  virtualhost:
+    fqdn: prometheus.event.cloudopsdays.com
+    tls:
+      secretName: cert-manager/wildcard-cloudopsdays-jp
+    authorization:
+      extensionRef:
+        name: prometheus-basic-auth-password
+        namespace: projectcontour
+  routes:
+    - conditions:
+      - prefix: /-/healthy
+      services:
+        - name: prometheus-k8s
+          port: 9090
+    - conditions:
+      - prefix: /api/v1/write
+      services:
+        - name: prometheus-k8s
+          port: 9090

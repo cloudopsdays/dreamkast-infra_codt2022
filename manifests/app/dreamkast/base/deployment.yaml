@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dreamkast
+    tier: dreamkast
+  name: dreamkast
+spec:
+  selector:
+    matchLabels:
+      app: dreamkast
+      tier: dreamkast
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: dreamkast
+        tier: dreamkast
+    spec:
+      containers:
+      - name: dreamkast
+        image: 632965872029.dkr.ecr.ap-northeast-1.amazonaws.com/dreamkast-ecs:main
+        ports:
+          - containerPort: 3000
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "800m"
+          limits:
+            memory: "512Mi"
+            cpu: "1000m"
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sleep","300"]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dreamkast
+    tier: dreamkast-ui
+  name: dreamkast-ui
+spec:
+  selector:
+    matchLabels:
+      app: dreamkast
+      tier: dreamkast-ui
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: dreamkast
+        tier: dreamkast-ui
+    spec:
+      containers:
+      - image: 632965872029.dkr.ecr.ap-northeast-1.amazonaws.com/dreamkast-ui:main
+        imagePullPolicy: Always
+        name: dreamkast-ui
+        ports:
+        - containerPort: 3001
+        livenessProbe:
+          httpGet:
+            port: 3001
+            path: /codt2022/ui/
+          failureThreshold: 5
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            port: 3001
+            path: /codt2022/ui/
+          failureThreshold: 5
+          periodSeconds: 5
+        startupProbe:
+          httpGet:
+            port: 3001
+            path: /codt2022/ui/
+          failureThreshold: 30
+          periodSeconds: 10
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        lifecycle:
+          preStop:
+            exec:
+              command: ["/bin/sleep","300"]

@@ -9,7 +9,7 @@ spec:
   virtualhost:
     fqdn: event.cloudopsdays.com
     tls:
-      secretName: cert-manager/wildcard-cloudopsdays-jp
+      secretName: cert-manager/event-cloudopsdays-com
   routes:
     - conditions:
       - prefix: /

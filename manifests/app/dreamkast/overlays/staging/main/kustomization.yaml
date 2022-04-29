@@ -12,6 +12,6 @@ patchesStrategicMerge:
 namespace: dreamkast-staging
 images:
 - name: 632965872029.dkr.ecr.ap-northeast-1.amazonaws.com/dreamkast-ecs
-  newTag: 9f87ef323843a3c87b6511e1a2273049758db8a1
+  newTag: 71b677e028799d7eba7c1b41ac7954367e26f382
 - name: 632965872029.dkr.ecr.ap-northeast-1.amazonaws.com/dreamkast-ui
   newTag: ae7a5746936cc20b7858f38dc8f12ea0ecb1595f

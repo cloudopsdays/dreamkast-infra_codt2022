@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- secret.yaml
+- ingress.yaml
+- redis.yaml
+- hpa.yaml
+- ../../../base/
+- deployment-fifo-worker.yaml
+patchesStrategicMerge:
+- deployment-dreamkast.yaml
+namespace: dreamkast
+images:
+- name: 632965872029.dkr.ecr.ap-northeast-1.amazonaws.com/dreamkast-ecs
+  newTag: 9f87ef323843a3c87b6511e1a2273049758db8a1
+- name: 632965872029.dkr.ecr.ap-northeast-1.amazonaws.com/dreamkast-ui
+  newTag: ae7a5746936cc20b7858f38dc8f12ea0ecb1595f

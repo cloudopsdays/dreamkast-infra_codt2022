@@ -7,9 +7,9 @@ metadata:
     app: dreamkast
 spec:
   virtualhost:
-    fqdn: staging.dev.cloudopsdays.com
+    fqdn: staging.event.cloudopsdays.com
     tls:
-      secretName: cert-manager/wildcard-cloudopsdays-com
+      secretName: cert-manager/wildcard-cloudopsdays-jp
   routes:
     - conditions:
       - prefix: /

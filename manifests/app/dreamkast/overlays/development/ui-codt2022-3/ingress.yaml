@@ -6,9 +6,9 @@ metadata:
     app: dreamkast
 spec:
   virtualhost:
-    fqdn: dreamkast-ui-codt2022-3.event.cloudopsdays.com
+    fqdn: dreamkast-ui-codt2022-3.dev.cloudnativedays.jp
     tls:
-      secretName: cert-manager/event-cloudopsdays-com
+      secretName: cert-manager/wildcard-dev-cloudnativedays-jp
   routes:
     - conditions:
       - prefix: /

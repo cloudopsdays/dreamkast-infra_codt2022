@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: dreamkast-ui-codt2022-4
+bases:
+- ../../../base
+resources:
+- ns.yaml
+- mysql.yaml
+- redis.yaml
+- externalsecret.yaml
+- ingress.yaml
+- viewer-count.yaml
+- polling-harvest-job-and-update-video.yaml
+- deployment-fifo-worker.yaml
+patchesStrategicMerge:
+- deployment-dreamkast.yaml
+images:
+- name: "public.ecr.aws/q5p7z1m4/dreamkast-ui"
+  newTag: "18de9ecd0515c9e4751f93cc9a81dd5d800523e7"

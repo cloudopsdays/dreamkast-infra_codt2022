@@ -14,4 +14,4 @@ images:
 - name: public.ecr.aws/q5p7z1m4/dreamkast-ecs
   newTag: 763d54027cfe773bf0472ee637ab89edfdfe1f0d
 - name: public.ecr.aws/q5p7z1m4/dreamkast-ui
-  newTag: 45075221e98f360b9a669ad60a65f85ac0e912a7
+  newTag: b73ff03bfd9076d57216de3c537ff8b5949e4e56
